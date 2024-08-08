@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import JWT from 'jsonwebtoken';
 
 const userSchema = mongoose.Schema({
     name:{
@@ -20,7 +21,7 @@ const userSchema = mongoose.Schema({
     contactNo : {
         type: String,
         unique: true,
-        //match: /^[0-9]{10}$/,
+        match: /^[0-9]{10}$/,
     },
     profilePic: {
         type: String,
@@ -28,5 +29,17 @@ const userSchema = mongoose.Schema({
 },{timeStamps:true}
 );
 
-export const userModel =  mongoose.model('Users', userSchema)
-export default userModel
+//Password validation compare function
+userSchema.methods.passwordCompare = async function passwordCompare(plainPassword){
+    return await plainPassword==this.password
+};
+
+
+//JWT token
+userSchema.methods.generateToken = function(){
+    return JWT.sign({id:this._id}, process.env.JWT_SECRET,{expiresIn:'7d'})
+};
+
+
+export const userModel =  mongoose.model('Users', userSchema);
+export default userModel;

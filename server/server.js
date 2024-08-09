@@ -5,8 +5,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
+import cloudinary from 'cloudinary';
 
-//dot env config
+//dot env config - should always be on top
 dotenv.config();
 
 //databases connection
@@ -14,6 +15,14 @@ connectDB ();
 
 //rest object
 const app = express();
+
+// cloudinary config
+
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 //middleware 
 app.use(morgan('dev')); //gives realtime access time as a middleware

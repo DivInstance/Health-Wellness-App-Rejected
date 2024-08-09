@@ -20,14 +20,22 @@ const userSchema = mongoose.Schema({
     },
     contactNo : {
         type: String,
-        unique: true,
+        unique: false,
         match: /^[0-9]{10}$/,
     },
-    profilePic: {
-        type: String,
+    profilePicture: {
+        public_id: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
     },
-},{timeStamps:true}
+},{ timestamps: { createdAt: 'createdDate',updatedAt: 'updatedDate' } }
 );
+
+//TimeStamps
+//userSchema.set('timeStamps',{createdAt:"crdAt",updatedAt:"updAt"})
 
 //Password validation compare function
 userSchema.methods.passwordCompare = async function passwordCompare(plainPassword){
@@ -37,7 +45,7 @@ userSchema.methods.passwordCompare = async function passwordCompare(plainPasswor
 
 //JWT token
 userSchema.methods.generateToken = function(){
-    return JWT.sign({id:this._id}, process.env.JWT_SECRET,{expiresIn:'7d'})
+    return JWT.sign({ _id: this._id } , process.env.JWT_SECRET,{expiresIn:'7d'})
 };
 
 

@@ -55,7 +55,7 @@ export const loginController = async (req, res) => {
         //user validation
 
         if(!user){
-            return res.status(401).send({
+            return res.status(404).send({
                 success: false,
                 message: 'User not found'
             });

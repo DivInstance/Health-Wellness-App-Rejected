@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import InputBox from '../../components/Form/InputBox'
 
 //redux hooks
@@ -15,7 +15,7 @@ const Login = ({navigation}) => {
     //hooks
     const dispatch = useDispatch()
     //global state
-    const {loading,error, message}=useSelector(state=>state.user)
+    const {loading,error, message}=useSelector((state)=>state.user) //state.user since we had user:userReducer in store.js
 
     //Login Function
     const handleLogin =  () => {
@@ -24,11 +24,23 @@ const Login = ({navigation}) => {
         }
     // TODO: Add your API call here to authenticate the user
         
-        dispatch(actionLogin({email,password}));
+        dispatch(actionLogin(email,password));
         // alert("Login Successfully")    
         // navigation.navigate('home') 
     }
 
+    //life cycle
+    useEffect(()=>{
+        if(error){
+            alert(error);
+            dispatch({type:'clearError'})
+        }
+        if(message){
+            alert(message);
+            dispatch({type:'clearMessage'})
+        }
+    },[error,message])
+   
 
   return (
     <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset = {-500} style = {styles.containerA}>               

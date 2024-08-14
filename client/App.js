@@ -14,7 +14,7 @@ import Developer from './screens/Account/Developer';
 import Test from './screens/featureTest.js';
 import store from './redux/store.js';
 
-AppRegistry.registerComponent('main', () => App);
+
 
 //routes for navigation
 const Stack = createNativeStackNavigator()
@@ -23,7 +23,7 @@ export default function App () {
   return (
     <Provider store={store}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home Page'>
+          <Stack.Navigator initialRouteName='login'>
             <Stack.Screen name = 'loading' component={Loading} options={{headerShown: false}}/>
             <Stack.Screen name = 'login' component={Login} options={{headerShown: false}}/>
             <Stack.Screen name = 'register' component={Register} options={{headerShown: false}}/>
@@ -37,7 +37,7 @@ export default function App () {
     
           </Stack.Navigator>
       </NavigationContainer>
-      </Provider>
+    </Provider>
   );
 }
 
@@ -55,3 +55,17 @@ export default function App () {
 //     justifyContent: 'center',
 //   },
 // });
+
+
+/*import { Provider } from "react-redux";
+
+import store from "./redux/store";
+import Main from "./Main";
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  );
+}*/

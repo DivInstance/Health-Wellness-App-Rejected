@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useReducer } from "./features/auth/userReducer";
+import { userReducer } from "./features/auth/userReducer";
 
-export default configureStore()({
-    reducer: {
-        user: useReducer,
-    }
-})
+export default configureStore({
+  reducer: {
+    user: userReducer, //reducer name : user is used in login when selector is initalized
+  },
+});
 
-//Host 
-export const server = 'http://10.5.149.30:8080/api/v1/'
+// HOST
+export const server = "http://10.5.149.30:8080/api/v1";
 

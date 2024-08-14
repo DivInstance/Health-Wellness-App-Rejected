@@ -15,5 +15,11 @@ export const userReducer = createReducer({},(builder) => {
         state.isAuthenticated = false;
         state.error = action.payload;   
     })
+    builder.addCase('clearError',(state)=>{ //https://youtu.be/1mUp9YZQGFE?list=PLuHGmgpyHfRzZy2xPF2Vn68sprpaZmCTV&t=1638   
+        state.error = null;
+    })
+    builder.addCase('clearMessage',(state)=>{
+        state.message = null;
+    })
 })
 

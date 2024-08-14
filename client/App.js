@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Provider} from 'react-redux'
 import Home from './screens/Home';
 import Login from './screens/auth/Login';
 import Register from './screens/auth/Register';
@@ -11,13 +12,16 @@ import EditProfile from './screens/Account/EditProfile';
 import Notifications from './screens/Account/Notifications';
 import Developer from './screens/Account/Developer';
 import Test from './screens/featureTest.js';
+import store from './redux/store.js';
 
+AppRegistry.registerComponent('main', () => App);
 
 //routes for navigation
 const Stack = createNativeStackNavigator()
 
 export default function App () {
   return (
+    <Provider store={store}>
       <NavigationContainer>
           <Stack.Navigator initialRouteName='Home Page'>
             <Stack.Screen name = 'loading' component={Loading} options={{headerShown: false}}/>
@@ -33,6 +37,7 @@ export default function App () {
     
           </Stack.Navigator>
       </NavigationContainer>
+      </Provider>
   );
 }
 

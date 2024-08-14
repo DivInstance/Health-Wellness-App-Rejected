@@ -2,11 +2,20 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView }
 import React, {useState} from 'react'
 import InputBox from '../../components/Form/InputBox'
 
+//redux hooks
+import {useSelector,useDispatch} from 'react-redux'
+import { actionLogin } from '../../redux/features/auth/userAction'
+
 const Login = ({navigation}) => {
     const LoginImage = "https://static.vecteezy.com/system/resources/previews/027/241/646/original/3d-icon-login-security-png.png"
     const BackImage = "https://img.freepik.com/free-vector/medical-technology-science-background-vector-blue-with-blank-space_53876-117739.jpg"
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    //hooks
+    const dispatch = useDispatch()
+    //global state
+    const {loading,error, message}=useSelector(state=>state.user)
 
     //Login Function
     const handleLogin =  () => {
@@ -14,9 +23,10 @@ const Login = ({navigation}) => {
             return alert("Please enter your email address and password");
         }
     // TODO: Add your API call here to authenticate the user
-        alert("Login Successfully")
-    
-        navigation.navigate('home') 
+        
+        dispatch(actionLogin({email,password}));
+        // alert("Login Successfully")    
+        // navigation.navigate('home') 
     }
 
 

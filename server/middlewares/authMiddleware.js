@@ -5,9 +5,11 @@ import userModel from "../models/userModel.js";
 export const isAuthenticated = async (req,res,next) => {
     //descrtucture token from cookie
     const {token} = req.cookies;
-    
+    console.log("hi")
+    console.log(token)
+
     //validation
-    if(!token) {
+    if(!token) {        
         return res.status(401).send({
             success: false,
             message: 'Unauthorized user access'

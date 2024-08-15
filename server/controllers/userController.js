@@ -72,7 +72,7 @@ export const loginController = async (req, res) => {
             })
         }
         //Token
-        const token = await user.generateToken();
+        const token = user.generateToken();
 
         //Response with COOKIE settings
         res.status(200).cookie("token",token,{
@@ -132,7 +132,7 @@ export const logoutController = async (req, res) => {
             secure: process.env.NODE_ENV === 'development' ? true : false,
             httpOnly: process.env.NODE_ENV === 'development' ? true : false,
             sameSite: process.env.NODE_ENV === 'development' ? true : false,
-            expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000) //Cookie expiration time - 3 days in milliseconds
+            expires: new Date(Date.now()) 
         }).send({
             success: true,
             message: 'User logged out successfully'

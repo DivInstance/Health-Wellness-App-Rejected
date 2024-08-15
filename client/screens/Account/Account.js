@@ -7,11 +7,18 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import { useRoute, useNavigation } from '@react-navigation/native'
+import { useReduxStateHook } from '../../hooks/customHook'
+import { useDispatch } from 'react-redux'
+import { logoutAction } from '../../redux/features/auth/userAction'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Account = () => {
 
   const route = useRoute();
   const navigation = useNavigation();
+
+  const loading = useReduxStateHook(navigation,"login")
+  const dispatch = useDispatch()
 
   return (
     <Layout>
@@ -73,7 +80,7 @@ const Account = () => {
                   <Text style = {styles.buttonText}>Developer Contact</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style = {styles.logoutButton} onPress={()=>navigation.navigate('login') }>              
+              <TouchableOpacity style = {styles.logoutButton} onPress={ async ()=> {dispatch(logoutAction()); await AsyncStorage.removeItem("@auth");}}>              
                   <AntDesign name='logout' style = {{flexDirection: "row", padding: 7.5, fontSize: 15, color:'white',}}/> 
                   <Text style = {styles.logoutText}>Logout</Text>
               </TouchableOpacity>              

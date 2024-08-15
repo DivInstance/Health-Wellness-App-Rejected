@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import Header from '../components/Layout/Header';
 import MaterialCommunityIcons from  'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,8 +7,21 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import { useSelector , useDispatch} from "react-redux"
+import { getUserData } from '../redux/features/auth/userAction';
+
 
 const Home = () => {
+
+  const dispatch = useDispatch();
+  const {isAuthenticated} = useSelector((state) => state.user)
+
+
+  useEffect(()=>{
+    dispatch(getUserData);
+    console.log(`Autentication Flag (Home.js) - ${isAuthenticated}`);
+  },[dispatch])
+
 
   return (
     <Layout>

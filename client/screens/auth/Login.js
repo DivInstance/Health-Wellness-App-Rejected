@@ -5,6 +5,7 @@ import InputBox from '../../components/Form/InputBox'
 //redux hooks
 import {useSelector,useDispatch} from 'react-redux'
 import { actionLogin } from '../../redux/features/auth/userAction'
+import { useReduxStateHook } from '../../hooks/customHook'
 
 const Login = ({navigation}) => {
     const LoginImage = "https://static.vecteezy.com/system/resources/previews/027/241/646/original/3d-icon-login-security-png.png"
@@ -15,7 +16,9 @@ const Login = ({navigation}) => {
     //hooks
     const dispatch = useDispatch()
     //global state
-    const {loading,error, message}=useSelector((state)=>state.user) //state.user since we had user:userReducer in store.js
+    //const {loading,error, message}=useSelector((state)=>state.user) //state.user since we had user:userReducer in store.js
+
+    const loading = useReduxStateHook(navigation,"Home Page")
 
     //Login Function
     const handleLogin =  () => {
@@ -24,22 +27,21 @@ const Login = ({navigation}) => {
         }
     // TODO: Add your API call here to authenticate the user
         
-        dispatch(actionLogin(email,password));
-        // alert("Login Successfully")    
-        // navigation.navigate('home') 
-    }
+        dispatch(actionLogin(email,password));    
+    };
 
     //life cycle
-    useEffect(()=>{
-        if(error){
-            alert(error);
-            dispatch({type:'clearError'})
-        }
-        if(message){
-            alert(message);
-            dispatch({type:'clearMessage'})
-        }
-    },[error,message])
+    // useEffect(()=>{
+    //     if(error){
+    //         alert(error);
+    //         dispatch({type:'clearError'})
+    //     }
+    //     if(message){
+    //         alert(message);
+    //         dispatch({type:'clearMessage'})
+    //         navigation.navigate('Home Page') 
+    //     }
+    // },[error,message])
    
 
   return (
@@ -47,6 +49,7 @@ const Login = ({navigation}) => {
         <View style = {styles.containerB}>
             
             <Image source={{ uri:LoginImage }} style = {styles.image}/>
+            {loading && <Text>loading...</Text>}
       
         <InputBox placeholder={"Enter your email"} value = {email} setValue = {setEmail} autoComplete={'email'} />
         <InputBox value = {password} setValue = {setPassword} placeholder={"Enter your Password"} secureTextEntry={true} />

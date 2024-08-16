@@ -2,15 +2,16 @@ import {createReducer} from '@reduxjs/toolkit'
 
 //https://www.youtube.com/watch?v=1mUp9YZQGFE&list=PLuHGmgpyHfRzZy2xPF2Vn68sprpaZmCTV&index=42
 
-export const userReducer = createReducer({},(builder) => {
+export const userReducer = createReducer({token:null},(builder) => {
     //Login Cases
     builder.addCase("loginRequest",(state,action)  =>{
         state.loading = true;
     })
     builder.addCase("loginSuccess",(state,action)  =>{
         state.loading = false;
-        state.message = action.payload;
+        state.message = action.payload.message;
         state.isAuthenticated = true;
+        state.token = action.payload.token;
     })
     builder.addCase("loginFailure",(state,action)  =>{
         state.isAuthenticated = false;
@@ -23,6 +24,19 @@ export const userReducer = createReducer({},(builder) => {
     })
     builder.addCase('clearMessage',(state)=>{
         state.message = null;
+    })
+    //Register Reducer function
+    builder.addCase("registerRequest",(state,action)  =>{
+        state.loading = true;
+    })
+    builder.addCase("registerSuccess",(state,action)  =>{
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.message = action.payload
+    })
+    builder.addCase("registerFailure",(state,action)  =>{
+        state.isAuthenticated = false;
+        state.error = action.payload;   
     })
 
     //Get user Data request 

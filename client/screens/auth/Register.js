@@ -1,10 +1,15 @@
 import { View, Text, TextInput, Touchable, TouchableOpacity, Image, StyleSheet, TextBase, KeyboardAvoidingView, ScrollView, ScrollViewBase } from 'react-native'
 import React, {useState} from 'react'
 import InputBox from '../../components/Form/InputBox'
+import { useDispatch } from 'react-redux'
+import { register } from '../../redux/features/auth/userAction'
+import {useReduxStateHook} from './../../hooks/customHook.js'
 
 const Register = ({navigation}) => {
     const RegisterImage = "https://cdn3d.iconscout.com/3d/premium/thumb/css-9848466-7993986.png?f=webp"
     
+    const dispatch = useDispatch()
+
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -20,12 +25,19 @@ const Register = ({navigation}) => {
     const handleRegister =  () => {
         if (!name || !email || !password || !confirmPassword ){
             return alert("Please fill all required fields");
+        } 
+        const formData = {
+            email,password,name,contactNo,age,bloodGroup,height,weight
         }
-    // TODO: Add your API call here to authenticate the user
-        alert("User registration successful")
+        dispatch(register(formData))
+
+    // // TODO: Add your API call here to authenticate the user
+    //     alert("User registration successful")
     
-        navigation.navigate('home') 
-    }
+    //     // navigation.navigate('home') 
+    };
+
+    const loading = useReduxStateHook(navigation,"login")
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

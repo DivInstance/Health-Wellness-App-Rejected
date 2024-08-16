@@ -6,7 +6,7 @@ export const isAuthenticated = async (req,res,next) => {
     //descrtucture token from cookie
     const {token} = req.cookies;
     console.log("hi")
-    console.log(token)
+    console.log(req)
 
     //validation
     if(!token) {        

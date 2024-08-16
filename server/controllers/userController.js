@@ -129,9 +129,9 @@ export const profileController = async (req,res) => {
 export const logoutController = async (req, res) => {
     try{
         res.status(200).cookie("token","",{
-            secure: process.env.NODE_ENV === 'development' ? true : false,
+            secure: true, //process.env.NODE_ENV === 'development' ? true : false,
             httpOnly: process.env.NODE_ENV === 'development' ? true : false,
-            sameSite: process.env.NODE_ENV === 'development' ? true : false,
+            sameSite: false, //process.env.NODE_ENV === 'development' ? true : false,
             expires: new Date(Date.now()) 
         }).send({
             success: true,

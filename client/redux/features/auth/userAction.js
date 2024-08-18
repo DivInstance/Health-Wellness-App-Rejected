@@ -95,23 +95,3 @@ export const logoutAction = () => async (dispatch) => {
     }
 }
 
-//register function 
-export const register = (formData) => async (dispatch) => {
-    try{
-        dispatch({
-            type:'registerRequest'
-        })
-        //hitting node register api request
-        const {data} = await axios.post(`${server}/user/register`,formData,{headers:{"Content-Type":"application/json"}})
-        dispatch({
-            type:"registerSuccess",
-            payload:data.message
-        })
-    }catch(error){
-        console.log(error)
-        dispatch({
-            type:'registerFailure',
-            payload: error.response.data.message,
-        })
-    }
-}

@@ -11,6 +11,8 @@ import Developer from './screens/Account/Developer';
 import Test from './screens/featureTest.js';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Emergency from './screens/Account/Emergency.js';
+
 
 
 
@@ -33,7 +35,7 @@ export default function Main () {
 return (     
 
       <NavigationContainer>
-          <Stack.Navigator initialRouteName='login'>
+          <Stack.Navigator initialRouteName='emergency'>
           
           {!isAuthenticated && ( 
             <>
@@ -49,6 +51,7 @@ return (
             <Stack.Screen name = 'notifications' component = {Notifications} options={{ headerShown: false,}}/>
             <Stack.Screen name = 'profile' component = {EditProfile}/>
             <Stack.Screen name = 'developer' component = {Developer}/>
+            <Stack.Screen name = 'emergency' component = {Emergency} options={{headerShown:false,}}/>
             <Stack.Screen name = 'test' component = {Test}/>
                      
     

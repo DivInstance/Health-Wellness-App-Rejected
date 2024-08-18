@@ -80,10 +80,17 @@ const Account = () => {
                   <Text style = {styles.buttonText}>Developer Contact</Text>
               </TouchableOpacity>
 
+              <View style = {{flexDirection:'row',marginTop:18}}>
+              <TouchableOpacity style = {styles.emergencyButton} >
+                  <AntDesign name='logout' style = {{flexDirection: "row", padding: 7.5, fontSize: 15, color:'white',}}/> 
+                  <Text style = {styles.logoutText}>Emergency Contact</Text>
+              </TouchableOpacity>              
+
               <TouchableOpacity style = {styles.logoutButton} onPress={ async ()=> {dispatch(logoutAction()); await AsyncStorage.removeItem("@auth");}}>              
                   <AntDesign name='logout' style = {{flexDirection: "row", padding: 7.5, fontSize: 15, color:'white',}}/> 
                   <Text style = {styles.logoutText}>Logout</Text>
               </TouchableOpacity>              
+              </View>
             </View>
 
           </View>
@@ -95,6 +102,8 @@ const Account = () => {
 const styles = StyleSheet.create({
   container: {
     marginVertical:20,
+    marginTop:15,
+    marginLeft:3,
   },
   profilePicture: {
     height :120,
@@ -107,6 +116,7 @@ const styles = StyleSheet.create({
     padding:1.5,
     color: "white",
     bottom:0,
+  
   },
   infoData : {
     fontWeight:'100'
@@ -136,7 +146,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     elevation: 3,
     borderRadius: 10,
-    paddingBottom: 0,
+    paddingBottom: 10,
   },
   heading : {
     fontSize: 21,
@@ -157,7 +167,7 @@ const styles = StyleSheet.create({
     padding:4.5,
   },
   logoutButton : {
-    marginLeft: 240,
+    marginLeft: 45,
     width: "30%",
     backgroundColor: "red",
     flexDirection: "row",
@@ -166,6 +176,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 15,
+  },
+  emergencyButton : {
+    marginLeft: 18,
+    width: "48%",
+    backgroundColor: "#26CC00",
+    flexDirection: "row",
+    borderRadius: 10,
+    height: 42,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+    paddingRight:9,
   },
   logoutText: {
     color: "white",

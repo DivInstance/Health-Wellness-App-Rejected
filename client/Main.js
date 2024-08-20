@@ -35,7 +35,7 @@ export default function Main () {
 return (     
 
       <NavigationContainer>
-          <Stack.Navigator initialRouteName='emergency'>
+          <Stack.Navigator initialRouteName='Account Information'>
           
           {!isAuthenticated && ( 
             <>

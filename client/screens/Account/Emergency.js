@@ -25,14 +25,14 @@ const Emergency = () => {
     </View>
 
     <TouchableOpacity style={{flexDirection:'row'}} onPress={triggerCall}>
-    <Text style = {{fontSize:27,color:'red',fontWeight:'500', marginLeft:6,transform:[{translateY:-138}]}}>Ambulance Helpline</Text>
+    <Text style = {{fontSize:27,color:'red',fontWeight:'500', marginLeft:6,transform:[{translateY:-150}]}}>Ambulance Helpline</Text>
     {/*<Ionicons name='call-sharp' size={19.5} color='red' style={{transform:[{translateY:-132}],marginLeft:10}}/>/
     <Fontisto name='ambulance' size={21} color='red' style={{transform:[{translateY:-144}],marginLeft:10}}/> */}
     
     </TouchableOpacity>    
 
     <View style={styles.circleContainer}>
-    <Text style = {{fontSize:30,color:'#333333',fontWeight:'500' ,transform: [{ translateY: -108 }]}}>Are you in emergency?</Text>
+    <Text style = {{fontSize:30,color:'#333333',fontWeight:'500' ,transform: [{ translateY: -102 }]}}>Are you in emergency?</Text>
     <Text style = {styles.flareText}>Tap the button to deploy emergency flare, help will reach you soon</Text>
       
       <TouchableOpacity style={[styles.innerCircle]} onPress={triggerCall}>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     headContainer: {
-      top:-165,
+      top:-180,
       height: '5.7%',
       backgroundColor: '#333',
       padding: 10,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flareText:{
       fontSize:21,
       color:'grey',
-      transform: [{ translateY: -87 },], 
+      transform: [{ translateY: -81 },], 
       alignContent:'center',
       lineHeight:36,
       textAlign:'center'
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
       position: 'relative',  // Position circles and SOS correctly
       width: 300,
       height: 300,  // Same size as outer circle
+      transform: [{ translateY: -15 },]
       },
     outerCircle: {
         width: 270,

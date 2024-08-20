@@ -81,8 +81,8 @@ const Account = () => {
               </TouchableOpacity>
 
               <View style = {{flexDirection:'row',marginTop:18}}>
-              <TouchableOpacity style = {styles.emergencyButton} >
-                  <AntDesign name='logout' style = {{flexDirection: "row", padding: 7.5, fontSize: 15, color:'white',}}/> 
+              <TouchableOpacity style = {styles.emergencyButton} onPress={() => navigation.navigate('emergency')}>
+                  <MaterialIcons name='contact-emergency' style = {{flexDirection: "row", padding: 7.5, fontSize: 16.5, color:'white',}}/> 
                   <Text style = {styles.logoutText}>Emergency Contact</Text>
               </TouchableOpacity>              
 

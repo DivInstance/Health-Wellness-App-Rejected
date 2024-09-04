@@ -85,7 +85,7 @@ const Register = ({navigation}) => {
   )
 }
 
-export default Register
+
 
 const styles = StyleSheet.create({
     containerA: {
@@ -145,3 +145,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 })
+
+
+export default Register

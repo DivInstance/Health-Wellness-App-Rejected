@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-
 export default function Doggu({navigation}) {    
 
   // Navigate to the login page when the user taps the 'HealthEase' text.

@@ -18,6 +18,7 @@ const Login = ({navigation}) => {
     //global state
     //const {loading,error, message}=useSelector((state)=>state.user) //state.user since we had user:userReducer in store.js
 
+    //const loading = useReduxStateHook(navigation,"Home Page")
     const loading = useReduxStateHook(navigation,"Home Page")
 
     //Login Function
@@ -25,9 +26,11 @@ const Login = ({navigation}) => {
         if (!email || !password ){
             return alert("Please enter your email address and password");
         }
+
+        
     // TODO: Add your API call here to authenticate the user
         
-        dispatch(actionLogin(email,password));    
+     dispatch(actionLogin(email,password));    
     };
 
     //life cycle

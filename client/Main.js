@@ -21,29 +21,35 @@ const Stack = createNativeStackNavigator()
 
 export default function Main () {
 
-    const [isAuthenticated,setIsAuthenticated] = useState(null)
+    const [isAuthenticated,setIsAuthenticated] = useState(null);
 
      //getuser
      useEffect(()=>{
         const getUserLocalData = async () => { 
             let data = await AsyncStorage.getItem('@auth');
+            setIsAuthenticated(data)
             //let loginData = JSON.parse(data);
             console.log(`User Login Data - ${data}`)   
+            
     };
     getUserLocalData()},[])
   
 return (     
-
+      <>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName='Account Information'>
-          
+          <Stack.Navigator initialRouteName='loading'>
+
+          {/*<Stack.Screen name = 'login' component={Login} options={{headerShown: false}}/> */}
+          <Stack.Screen name = 'login' component={Login} options={{headerShown: false}}/>
+          <Stack.Screen name = 'register' component={Register} options={{headerShown: false}}/>
+
+          {/*
           {!isAuthenticated && ( 
             <>
             <Stack.Screen name = 'login' component={Login} options={{headerShown: false}}/>
             <Stack.Screen name = 'register' component={Register} options={{headerShown: false}}/>
             </>
-          )}
-            
+          )}*/}  
 
             <Stack.Screen name = 'loading' component={Loading} options={{headerShown: false}}/>
             <Stack.Screen name = 'Home Page' component = {Home}/>
@@ -53,10 +59,10 @@ return (
             <Stack.Screen name = 'developer' component = {Developer}/>
             <Stack.Screen name = 'emergency' component = {Emergency} options={{headerShown:false,}}/>
             <Stack.Screen name = 'test' component = {Test}/>
-                     
-    
+                    
           </Stack.Navigator>
       </NavigationContainer>
+      </>
   );
 }
 

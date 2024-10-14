@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema({
         unique: [true,'email already exists'],
         //match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
     },
+    gender: {
+        type: String,
+        enum: ['male', 'female'],
+        required: false,
+    },
     password: {
         type: String,
         required: [true,'password is required'],
@@ -22,6 +27,23 @@ const userSchema = mongoose.Schema({
         type: String,
         unique: false,
         match: /^[0-9]{10}$/,
+    },
+    bloodGroup: {
+        type: String,
+        enum: ['A +ve', 'A -ve', 'B +ve', 'B -ve', 'AB +ve', 'AB -ve', 'O +ve', 'O -ve'],
+        required: false,
+    },
+    height: {
+        type: Number, // Height in cm
+        required: false,
+    },
+    weight: {
+        type: Number, // Weight in kg
+        required: false,
+    },
+    age: {
+        type: Number,
+        required: false,
     },
     profilePicture: {
         public_id: {

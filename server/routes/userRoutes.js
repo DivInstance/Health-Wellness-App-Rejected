@@ -32,4 +32,5 @@ router.put('/update-profile-picture', isAuthenticated, singleUpload, updateProfi
 // Download user profile
 router.get('/download-profile', isAuthenticated, downloadProfileController)
 
+
 export default router

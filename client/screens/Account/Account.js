@@ -30,11 +30,11 @@ const Account = () => {
           const data = JSON.parse(storedUserData); // Parse stored data
           
           // Set default values for missing user data fields
-          data.bloodGroup = data.bloodGroup || localUserData.bloodGroup;
-          data.gender = data.gender || localUserData.gender;
-          data.contactNo = data.contactNo || localUserData.contactNo;
-          data.height = data.height || localUserData.height;
-          data.weight = data.weight || localUserData.weight;
+          data.bloodGroup = data.bloodGroup || "NA";
+          data.gender = data.gender || "NA";
+          data.contactNo = data.contactNo || "NA";
+          data.height = data.height || "NA";
+          data.weight = data.weight || "NA";
           
           setUserData(data); // Update state with the fetched data
         } else {

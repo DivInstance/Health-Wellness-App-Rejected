@@ -1,4 +1,4 @@
-export const userData = {
+export const localUserData = {
     _id:1,
     profilePicture:'https://cdn3d.iconscout.com/3d/premium/thumb/profile-8260859-6581822.png?f=webp',
     name: 'John Doe',

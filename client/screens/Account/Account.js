@@ -1,7 +1,7 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, Button, Linking } from 'react-native'
-import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button, Linking, ActivityIndicator } from 'react-native'
+import {React, useEffect, useState} from 'react'
 import Layout from '../../components/Layout/Layout'
-import { userData } from '../../data/userData'
+import { localUserData } from '../../data/userData'
 import AntDesign from 'react-native-vector-icons/AntDesign.js'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -13,13 +13,46 @@ import { logoutAction } from '../../redux/features/auth/userAction'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Account = () => {
+  const [userData, setUserData] = useState(null); // State to store user data
+  const [loading, setLoading] = useState(true); // Loading state
+  const route = useRoute(); // Get current route
+  const navigation = useNavigation(); // Navigation instance
+  const isLoading = useReduxStateHook(navigation, "login"); // Check if login is still loading from Redux
+  const dispatch = useDispatch(); // Dispatch to trigger actions
+  
 
-  const route = useRoute();
-  const navigation = useNavigation();
-
-  const loading = useReduxStateHook(navigation,"login")
-  const dispatch = useDispatch()
-
+  useEffect(() => {
+    // Fetch user data from AsyncStorage when component mounts
+    const fetchUserDataFromStorage = async () => {
+      try {
+        const storedUserData = await AsyncStorage.getItem('@userData'); // Retrieve stored data
+        if (storedUserData !== null) {
+          const data = JSON.parse(storedUserData); // Parse stored data
+          
+          // Set default values for missing user data fields
+          data.bloodGroup = data.bloodGroup || localUserData.bloodGroup;
+          data.gender = data.gender || localUserData.gender;
+          data.contactNo = data.contactNo || localUserData.contactNo;
+          data.height = data.height || localUserData.height;
+          data.weight = data.weight || localUserData.weight;
+          
+          setUserData(data); // Update state with the fetched data
+        } else {
+          throw new Error('No user data found');
+        }
+        setLoading(false); // Stop loading
+      } catch (error) {
+        console.error(error); // Log errors
+        setLoading(false); // Stop loading even if an error occurs
+      }
+    };
+  
+    fetchUserDataFromStorage();
+  }, []);
+  
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />; // Show loading indicator
+  }
   return (
     <Layout>
       <View style = {styles.container}>
@@ -38,8 +71,8 @@ const Account = () => {
 
         <Text style = {styles.infoClass}> email : <Text style={styles.infoData}>{userData.email}</Text></Text>
         <Text style = {styles.infoClass}>contact: <Text style={styles.infoData}>{userData.contactNo}</Text></Text> 
-        <Text style = {styles.infoClass}> height :<Text style={styles.infoData}> {userData.height}  
-        <Text style = {{fontWeight:'400'}}>  weight : <Text style={styles.infoData}></Text><Text style={styles.infoData}>{userData.weight}   
+        <Text style = {styles.infoClass}> height :<Text style={styles.infoData}> {userData.height + " cm"}  
+        <Text style = {{fontWeight:'400'}}>  weight : <Text style={styles.infoData}></Text><Text style={styles.infoData}>{userData.weight +' kg'}   
         <Text style = {{fontWeight:'400'}}>  gender: <Text style={styles.infoData}>{userData.gender}</Text></Text></Text></Text></Text></Text>
       
         </View>

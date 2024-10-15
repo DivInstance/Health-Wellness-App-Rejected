@@ -81,7 +81,7 @@ export const loginController = async (req, res) => {
         secure: process.env.NODE_ENV === "development" ? true : false,
         httpOnly: process.env.NODE_ENV === "development" ? true : false,
         sameSite: process.env.NODE_ENV === "development" ? true : false,
-        expires: new Date(Date.now() + 60), //Cookie expiration time - 3 days in milliseconds
+        expires: new Date(Date.now() + 3 * 60 * 60 * 1000), //Cookie expiration time - 3 days in milliseconds
       })
       .send({
         success: true,

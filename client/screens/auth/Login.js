@@ -14,7 +14,7 @@ import { actionLogin } from "../../redux/features/auth/userAction";
 import { useReduxStateHook } from "../../hooks/customHook";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
+ 
 const Login = ({ navigation }) => {
   // URLs for the login and background images
   const LoginImage =
@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
     try {
       // Make API request to authenticate the user
       const response = await axios.post(
-        "http://10.7.239.91:8000/api/v1/user/login",
+        "http://10.7.239.91:8082/api/v1/user/login",
         { email: email, password: password },
         {
           headers: { "Content-Type": "application/json" },

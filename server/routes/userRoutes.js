@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginController, logoutController, profileController, registerController, updatePasswordController, updateProfileController, updateProfilePictureController } from '../controllers/userController.js';
+import { loginController, logoutController, profileController, registerController, updatePasswordController, updateProfileController, updateProfilePictureController, downloadProfileController} from '../controllers/userController.js';
 import { isAuthenticated } from '../middlewares/authMiddleware.js';
 import { singleUpload } from '../middlewares/multer.js';
 
@@ -27,6 +27,10 @@ router.get('/profile-update',isAuthenticated,updateProfileController)
 router.put('/update-password',isAuthenticated,updatePasswordController)
 
 //update profile picture
-router.put('/update-profile-picture',isAuthenticated,singleUpload,updateProfilePictureController)
+router.put('/update-profile-picture', isAuthenticated, singleUpload, updateProfilePictureController)
+
+// Download user profile
+router.get('/download-profile', isAuthenticated, downloadProfileController)
+
 
 export default router

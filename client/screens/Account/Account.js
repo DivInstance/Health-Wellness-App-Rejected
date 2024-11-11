@@ -240,6 +240,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginTop: 15,
     marginLeft: 3,
+    backgroundColor: '#fffef6',    
   },
   profilePicture: {
     height: 120,

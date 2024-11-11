@@ -8,7 +8,7 @@ const Layout = ({children}) => {
   return (
     <>
     
-    <View>
+    <View style = {styles.container}>
         {children}
     </View>
 
@@ -24,11 +24,18 @@ const Layout = ({children}) => {
 export default Layout
 
 const styles = StyleSheet.create({
+  container : {
+    flex: 1,
+    //Added height
+    height:"100%",
+    width: '100%',
+    backgroundColor: '#fff',
+  },
   footer : {
     display : 'flex',
     flex: 1,
     //Added height
-    height:"7.5%",
+    height:"7.%",
     width: '99%',
     borderColor: 'lightgray',
     justifyContent: 'flex-end',

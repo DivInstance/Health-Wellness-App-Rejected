@@ -10,21 +10,21 @@ const Footer = () => {
   return (
      <View style = {styles.container}>
       <TouchableOpacity style = {styles.menuContainer} onPress={()=> navigation.navigate('Home Page')}>
-        <AntDesign style = {[styles.icons, route.name === "home" && styles.active]} name = "home"/>
-        <Text style = {[StyleSheet.iconText, route.name === "home" && styles.active]}>Home</Text>
+        <AntDesign style = {[styles.icons, route.name === "Home Page" && styles.active]} name = "home"/>
+        <Text style = {[StyleSheet.iconText, route.name === "Home Page" && styles.active]}>Home</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.menuContainer} onPress={()=> alert("Activity Page")}>
-        <AntDesign style = {[styles.icons, route.name === "activity" && styles.active]} name = "linechart"/>
-        <Text style = {[StyleSheet.iconText, route.name === "activity" && styles.active]}>Activity</Text>
+      <TouchableOpacity style = {styles.menuContainer} onPress={()=> navigation.navigate('exercise')}>
+        <AntDesign style = {[styles.icons, route.name === "exercise" && styles.active]} name = "linechart"/>
+        <Text style = {[StyleSheet.iconText, route.name === "exercise" && styles.active]}>Activity</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.menuContainer} onPress={()=> alert("Rec")}>
-        <AntDesign style = {[styles.icons, route.name === "rec" && styles.active]} name = "pluscircleo"/>
-        <Text style = {[StyleSheet.iconText, route.name === "rec" && styles.active]}>EaseIt</Text>
+      <TouchableOpacity style = {styles.menuContainer} onPress={()=>  navigation.navigate('cycle')}>
+        <AntDesign style = {[styles.icons, route.name === "record" && styles.active]} name = "pluscircleo"/>
+        <Text style = {[StyleSheet.iconText, route.name === "record" && styles.active]}>Record</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.menuContainer} onPress={()=> alert("Learn Page")}>
+      <TouchableOpacity style = {styles.menuContainer} onPress={()=> navigation.navigate('learn')}>
         <AntDesign style = {[styles.icons, route.name === "learn" && styles.active]} name = "earth"/>
         <Text style = {[StyleSheet.iconText, route.name === "learn" && styles.active]}>Learn</Text>
       </TouchableOpacity>

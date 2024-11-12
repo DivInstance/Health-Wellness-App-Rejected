@@ -19,7 +19,7 @@ const Footer = () => {
         <Text style = {[StyleSheet.iconText, route.name === "exercise" && styles.active]}>Activity</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.menuContainer} onPress={()=>  navigation.navigate('cycle')}>
+      <TouchableOpacity style = {styles.menuContainer} onPress={()=>  navigation.navigate('record')}>
         <AntDesign style = {[styles.icons, route.name === "record" && styles.active]} name = "pluscircleo"/>
         <Text style = {[StyleSheet.iconText, route.name === "record" && styles.active]}>Record</Text>
       </TouchableOpacity>

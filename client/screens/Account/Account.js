@@ -1,13 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Linking,
-  ActivityIndicator,
-} from "react-native";
+import {View,Text,Image,StyleSheet,TouchableOpacity,Button,Linking,ActivityIndicator,} from "react-native";
 import { React, useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { localUserData } from "../../data/userData";
@@ -43,6 +34,7 @@ const Account = () => {
           data.contactNo = data.contactNo || "NA";
           data.height = data.height || "NA";
           data.weight = data.weight || "NA";
+          data.profilePicture = data.profilePicture || "NA";
 
           setUserData(data); // Update state with the fetched data
         } else {
@@ -62,11 +54,13 @@ const Account = () => {
   return (
     <Layout>
       <View style={styles.container}>
-        <View style={styles.ProfileContainer}>
+        <View style={styles.ProfileContainer}>  
           <Image
             style={styles.profilePicture}
-            source={{ uri: userData.profilePicture }}
+            source={{uri:localUserData.profilePicture }}
           />
+          
+          {/*source={{ uri: userData.profilePicture }}*/}
 
           <Text
             style={{

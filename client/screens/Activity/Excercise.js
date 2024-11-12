@@ -6,13 +6,22 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Layout from '../../components/Layout/Layout';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
+import { useRoute,useNavigation } from '@react-navigation/native';
 
-export default function Exercise({ navigation }) {
+{/*Ignore all the warnings and irrelevant logs and pop ups*/}
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs()
+
+export default function Exercise({}) {
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
 
   const toggleCalendar = () => {
     setIsCalendarExpanded(!isCalendarExpanded);
   };
+
+  const route = useRoute();
+  const navigation = useNavigation();
 
   return (
     <Layout>
@@ -117,7 +126,7 @@ export default function Exercise({ navigation }) {
       </View>
 
       {/* Record Exercise Button */}
-      <TouchableOpacity style={styles.recordButton}>
+      <TouchableOpacity style={styles.recordButton} onPress={()=> navigation.navigate('record')}>
         <Text style={styles.recordButtonText}>Record Exercise</Text>
       </TouchableOpacity>
     </ScrollView>

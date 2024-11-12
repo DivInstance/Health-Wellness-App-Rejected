@@ -1,42 +1,37 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
 
-const Header = () => {
-
-      return (
-    <View style = {{height:45, marginTop:30, backgroundColor:'lightgray'}}>        
-        
+const Header = ({ title }) => {
+  return (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerText}>{title}</Text>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flex : 1,
-        flexDirection: 'roe',
-        alignItems: 'center',
-        paddingHorizontal: 15,
-    },
-    inputBox: {
-        borderWidth: 0.3,
-        top:20,
-        width: "100%",
-        position : 'absolute',
-        left : 15,
-        height : 40,
-        color: 'white',
-        backgroundColor: "#ffffff",
-        paddingLeft: 10,
-        fontsize: 5,
-        borderRadius: 5,
-    },
-    searchBtn: {
-        position: 'absolute',
-        left : "93%",
-        top : 33,
-    }  
-})
+  headerContainer: {
+    position: 'absolute', // Position it absolutely
+    top: 0, // Align at the top of the screen
+    left: 0,
+    right: 0,
+    height: '13.5%', // Height of the header
+    backgroundColor: 'white', // Background color for visibility
+    shadowColor: '#000', // Adds shadow for iOS
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    shadowOffset: { height: 2, width: 0 },
+    zIndex: 1, // Ensures it's above all other elements
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: 15, 
+  },
+  headerText: {
+    fontSize: 30,
+    color: 'black',
+    fontWeight: 'bold',
+    alignSelf:'center',
+  },
+});
 
-export default Header
+export default Header;

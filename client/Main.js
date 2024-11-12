@@ -14,10 +14,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Emergency from "./screens/Account/Emergency.js";
 import Exercise from "./screens/Activity/Excercise.js";
 import Record from "./screens/Record/Record.js";
-import Learn from "./screens/Learn/Learn.js";
 import Cycle from "./screens/Record/Cycle.js";
 import Run from "./screens/Record/Run.js";
 import ScreenTime from "./screens/Home/Screentime.js";
+import AnimatedBackground from "./screens/Learn/Animatedbg.js";
+import Meditation from "./screens/Learn/Medtitate.js";
 
 //routes for navigation
 const Stack = createNativeStackNavigator();
@@ -53,7 +54,7 @@ export default function Main() {
   return (
     <>
       <NavigationContainer>
-      <Stack.Navigator initialRouteName = {"login"}>
+      <Stack.Navigator initialRouteName = {"loading"}>
         {/*<Stack.Navigator initialRouteName = {isAuthenticated ? "Home Page":"Login"}>*/}
           
           <Stack.Screen name="login" component={Login} options={{ headerShown: false }} />
@@ -66,11 +67,12 @@ export default function Main() {
           <Stack.Screen name="developer" component={Developer} />
           <Stack.Screen name="emergency" component={Emergency} options={{ headerShown: false }}/>
           <Stack.Screen name="exercise" component={Exercise} options={{ headerShown: true, title: 'Exercise Activity', headerTitleAlign: 'center' }}/>
-          <Stack.Screen name="learn" component={Learn} options={{ headerShown: false }}/>
           <Stack.Screen name="record" component={Record} options={{ headerShown: false }}/>
           <Stack.Screen name="cycle" component={Cycle} options={{ headerShown: false }}/>
           <Stack.Screen name="run" component={Run} options={{ headerShown: false }}/>
           <Stack.Screen name="screentime" component={ScreenTime} options={{ headerShown: true, title : 'Screen Time', headerTitleAlign:'center',headerTitleStyle: { fontWeight: 'bold', fontSize: 30 }}}/>
+          <Stack.Screen name="meditbg" component={AnimatedBackground} options={{ headerShown: false }}/>
+          <Stack.Screen name="meditate" component={Meditation} options={{ headerShown: false }}/>
           
         </Stack.Navigator>
       </NavigationContainer>

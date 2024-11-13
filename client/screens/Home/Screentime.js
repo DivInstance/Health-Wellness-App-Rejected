@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ProgressBarAndroid } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
+
+{/*Ignore all the warnings and irrelevant logs and pop ups*/}
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs()
 
 export default function ScreenTime({ navigation }) {
   const [screenTime, setScreenTime] = useState(0);
@@ -30,6 +34,9 @@ export default function ScreenTime({ navigation }) {
   };
 
   const screenWidth = Dimensions.get('window').width;
+
+  const divprint = "            ";
+  const kprint = "                           ";
 
   return (
     <ScrollView style={styles.container}>
@@ -104,35 +111,36 @@ export default function ScreenTime({ navigation }) {
       <Text style={styles.chartTitle}>Past 7 Days</Text>
       <BarChart
         data={data}
-        width={screenWidth-51}
+        width={screenWidth-25}
         height={220}
         chartConfig={{
-          backgroundColor: 'white',
+          backgroundColor: 'red',
           backgroundGradientFrom: 'white',
           backgroundGradientTo: 'white',
           color: ()=>`rgb(245, 166, 35)`,
           propsForLabels: {
             fontSize: 12,
-            color: 'black',
-            fontWeight: 'bold',
+            color: 'green',
+            fontWeight: '900',
           },
         }}
-        style={{ borderRadius: 10, marginVertical: 10,paddingHorizontal:30, }}
+        style={{ borderRadius: 10, marginVertical: 10, left: -25, paddingBottom: 20}}
       />
 
       {/* Most Used Apps and Most Notifications */}
+
       <View style={{flexDirection:'column',height:'80%',width:'80%'}}>
         <View style={{width:'124%',backgroundColor:'#f0f0f0',padding:10,borderRadius:10,marginBottom:15}}>
-          <Text style={{fontSize: 21, fontWeight: 'bold', alignSelf:'left', padding:10 }}>Most Used Apps</Text>
-          <Text style={styles.text}>- Instagram: 1 hr</Text>
-          <Text style={styles.text}>- WhatsApp: 40 mins</Text>
-          <Text style={styles.text}>- YouTube: 30 mins</Text>
+          <Text style={{fontSize: 25, fontWeight: 'bold', alignSelf:'left', padding:10 }}>Most Used Apps</Text>
+          <Text style={styles.text}> <MaterialCommunityIcons name="instagram" size={38} color="purple" />  Instagram {divprint}   1 hour</Text>
+          <Text style={styles.text}> <MaterialCommunityIcons name="whatsapp" size={38} color="#21f21d" />  WhatsApp {divprint} 40 mins</Text>
+          <Text style={styles.text}> <MaterialCommunityIcons name="youtube" size={38} color="red" /> YouTube {divprint}     30 mins</Text>
         </View>
         <View style={{width:'124%',backgroundColor:'#f0f0f0',padding:10,borderRadius:10,marginBottom:15}}>
-        <Text style={{fontSize: 21, fontWeight: 'bold', alignSelf:'left', padding:10 }}>Most Notifications</Text>
-          <Text style={styles.text}>- Email: 20</Text>
-          <Text style={styles.text}>- Slack: 15</Text>
-          <Text style={styles.text}>- Twitter: 10</Text>
+        <Text style={{fontSize: 25, fontWeight: 'bold', alignSelf:'left', padding:10 }}>Most Notifications</Text>
+          <Text style={styles.text}> <MaterialCommunityIcons name="email" size={38} color="#f25816" /> Email {kprint}   20</Text>
+          <Text style={styles.text}> <MaterialCommunityIcons name="slack" size={38} color="#f238bb" /> Slack {kprint}   15</Text>
+          <Text style={styles.text}> <MaterialCommunityIcons name="twitter" size={38} color="#1da4f2" /> Twitter {kprint} 10</Text>
         </View>
       </View>
 
@@ -157,7 +165,7 @@ const styles = StyleSheet.create({
   tileSubText: { color: '#666' },
   largeTileRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
   largeTile: { backgroundColor: '#f0f0f0', borderRadius: 10, padding: 15, width: '48%' },
-  chartTitle: { fontSize: 18, fontWeight: 'bold', marginVertical: 15, color: 'black' },
-  text:{fontSize: 18, padding: 9},
+  chartTitle: { fontSize: 18, fontWeight: 'bold', marginVertical: 15, color: 'white', backgroundColor: '#f5a623', padding :10, paddingLeft:20, borderRadius:15, width:'36%' },
+  text:{fontSize: 24, padding: 9, backgroundColor:'#f5a623', borderRadius: 15, color: 'white', fontWeight:'500', letterSpacing: 1.3, marginVertical:8, },
 });
 

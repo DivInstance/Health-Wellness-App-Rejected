@@ -4,6 +4,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, useWindowDimensions
 import Animated, {Easing, useSharedValue, useAnimatedStyle, withDelay,withRepeat, withTiming,} from 'react-native-reanimated';
 import { meditations } from './Medata'; // Assuming this is where the meditation data is stored
 import Header from '../../components/Layout/Header';
+import {useNavigation } from '@react-navigation/native'
 
 // Animated Background Component
 function AnimatedBackground() {
@@ -96,6 +97,9 @@ const Timer = ({ duration, onComplete, onPause }) => {
 };
 
 export default function Meditate() {
+  
+  const navigation = useNavigation();
+
   const [currentMeditation, setCurrentMeditation] = useState(null);
   const [isMeditating, setIsMeditating] = useState(false);
 
@@ -149,6 +153,11 @@ export default function Meditate() {
             onPause={handlePauseMeditation}
           />
         )}
+        
+        <TouchableOpacity style = {styles.terminateContainer} onPress={()=>navigation.navigate("Home Page")}>
+          <Text style={styles.terminateText}>Terminate Session</Text>
+        </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -171,10 +180,10 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 20,
-    paddingTop: 80,
+    paddingTop: '42%',
     width: '90%',
     alignSelf: 'center',
-    top: '10%',
+    top: '6%',
     paddingBottom:'15%'
   },
   meditationCard: {
@@ -232,8 +241,30 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    alignItems: 'center',
-    
+    alignItems: 'center',    
+  },
+  terminateContainer: {
+    borderRadius: 15,
+    height:'6%',
+    width: '79.5%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor:'red',
+    bottom:'7.5%',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  },
+  terminateText: {
+    borderRadius: 12,
+    height:'84%',
+    width: '97%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor:'#f97316',
+    textAlign:'center',
+    textAlignVertical:'center',
+    fontSize:18,
+    color: 'white',
+    fontWeight: 'bold',
   },
   circle: {
     position: 'absolute',

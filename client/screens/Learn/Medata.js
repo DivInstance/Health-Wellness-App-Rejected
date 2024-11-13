@@ -15,15 +15,8 @@ export const meditations = [
     },
     {
       id: 3,
-      title: 'Body Scan Meditation',
-      duration: 10,
-      type: 'audio',
-      pro: true,
-    },
-    {
-      id: 4,
       title: 'Stress Relief Meditation',
-      duration: 9,
+      duration: 10,
       type: 'audio',
       pro: true,
     }

@@ -111,12 +111,12 @@ const Account = () => {
               <Text style={styles.infoData}>
                 {" "}
                 {userData.height + " cm"}
-                <Text style={{ fontWeight: "400" }}>
+                <Text style={{ fontWeight: "600" }}>
                   {" "}
                   weight : <Text style={styles.infoData}></Text>
                   <Text style={styles.infoData}>
                     {userData.weight + " kg"}
-                    <Text style={{ fontWeight: "400" }}>
+                    <Text style={{ fontWeight: "600" }}>
                       {" "}
                       gender:{" "}
                       <Text style={styles.infoData}>{userData.gender}</Text>

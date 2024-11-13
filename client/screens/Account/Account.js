@@ -129,7 +129,7 @@ const Account = () => {
         </View>
 
         <View style={styles.accountContainer}>
-          <Text style={styles.heading}> Account Setting </Text>
+          <Text style={styles.heading}> Account Settings </Text>
 
           <View style={{ marginTop: 15 }}>
             <TouchableOpacity

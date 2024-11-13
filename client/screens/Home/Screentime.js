@@ -104,15 +104,20 @@ export default function ScreenTime({ navigation }) {
       <Text style={styles.chartTitle}>Past 7 Days</Text>
       <BarChart
         data={data}
-        width={screenWidth - 30}
+        width={screenWidth-51}
         height={220}
         chartConfig={{
           backgroundColor: 'white',
           backgroundGradientFrom: 'white',
           backgroundGradientTo: 'white',
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          color: ()=>`rgb(245, 166, 35)`,
+          propsForLabels: {
+            fontSize: 12,
+            color: 'black',
+            fontWeight: 'bold',
+          },
         }}
-        style={{ borderRadius: 10, marginVertical: 10 }}
+        style={{ borderRadius: 10, marginVertical: 10,paddingHorizontal:30, }}
       />
 
       {/* Most Used Apps and Most Notifications */}

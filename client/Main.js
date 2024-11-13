@@ -54,7 +54,7 @@ export default function Main() {
   return (
     <>
       <NavigationContainer>
-      <Stack.Navigator initialRouteName = {"login"}>
+      <Stack.Navigator initialRouteName = {"screentime"}>
         {/*<Stack.Navigator initialRouteName = {isAuthenticated ? "Home Page":"Login"}>*/}
           
           <Stack.Screen name="login" component={Login} options={{ headerShown: false }} />

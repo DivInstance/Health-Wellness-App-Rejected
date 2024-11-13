@@ -16,9 +16,9 @@ export default [
     {
       id: 3,
       picture: require('../assets/Developers/Prafulla.png'),
-      name: 'Prafulla Kumar',
+      name: 'Prafulla Chandra',
       description: 'Test Engineer and Logic Designer',
-      other: '""As a Test Engineer and Logic Designer, I craft epic test scenarios, squash bugs like a manga hero, and let Postman handle the API battles.""',
+      other: '"As a Test Engineer and Logic Designer, I craft epic test scenarios, squash bugs like a manga hero, and let Postman handle the API battles."',
     },
     {
       id: 4,
@@ -32,6 +32,6 @@ export default [
       picture: require('../assets/Developers/Chileshe.png'),
       name: 'Michael Chileshe',
       description: 'Frontend Advisor and Technical Writer',
-      other: '""As a Frontend Advisor and Technical Writer, I design sleek user interfaces and make sure every line of code comes with clear, simple instructions.""',
+      other: '"As a Frontend Advisor and Technical Writer, I design sleek user interfaces and make sure every line of code comes with clear, simple instructions."',
     },
   ];

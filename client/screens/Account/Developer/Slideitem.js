@@ -79,7 +79,7 @@ import {
     name: {
       fontSize: 27,
       fontWeight: 'bold',
-      color: '#333',
+      color: 'white',
       backgroundColor:'#f5a623',
       alignContent: 'center',
       padding:10,

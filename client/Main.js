@@ -54,7 +54,7 @@ export default function Main() {
   return (
     <>
       <NavigationContainer>
-      <Stack.Navigator initialRouteName = {"loading"}>
+      <Stack.Navigator initialRouteName = {"login"}>
         {/*<Stack.Navigator initialRouteName = {isAuthenticated ? "Home Page":"Login"}>*/}
           
           <Stack.Screen name="login" component={Login} options={{ headerShown: false }} />
@@ -63,8 +63,8 @@ export default function Main() {
           <Stack.Screen name="Home Page" component={Home} options= {{headerShown: false, title: 'HEALTH STATS', headerTitleAlign: 'center', fontSize: 36, headerTitleStyle: { fontWeight: 'bold', fontSize: 36, color: 'grey', opacity: 0.8, letterSpacing:3, },}}/>
           <Stack.Screen name="Account Information" component={Account} />
           <Stack.Screen name="notifications" component={Notifications} options={{ headerShown: false }}/>
-          <Stack.Screen name="profile" component={EditProfile} />
-          <Stack.Screen name="developer" component={Developer} />
+          <Stack.Screen name="profile" component={EditProfile} options={{headerShown:true, title:"Profile Edit Section"}}/>
+          <Stack.Screen name="developer" component={Developer} options = {{ headerShown: true, title : 'Developers', headerTitleAlign:'center',headerTitleStyle: { fontWeight: '500', fontSize: 24 }}}/>
           <Stack.Screen name="emergency" component={Emergency} options={{ headerShown: false }}/>
           <Stack.Screen name="exercise" component={Exercise} options={{ headerShown: true, title: 'Exercise Activity', headerTitleAlign: 'center' }}/>
           <Stack.Screen name="record" component={Record} options={{ headerShown: false }}/>

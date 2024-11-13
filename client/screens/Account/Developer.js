@@ -1,31 +1,57 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React, {useState} from 'react'
-import {devData} from '../../data/devData'
-import { userData } from '../../data/userData'
+import {Animated, FlatList, StyleSheet, Text, View} from 'react-native';
+import React, {useRef, useState} from 'react';
+import Slides from '../../data/developersData';
+import SlideItem from './Developer/Slideitem';
+import Pagination from './Developer/Pagination';
 
 const Developer = () => {
+  const [index, setIndex] = useState(0);
+  const scrollX = useRef(new Animated.Value(0)).current;
+
+  const handleOnScroll = event => {
+    Animated.event(
+      [
+        {
+          nativeEvent: {
+            contentOffset: {
+              x: scrollX,
+            },
+          },
+        },
+      ],
+      {
+        useNativeDriver: false,
+      },
+    )(event);
+  };
+
+  const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
+    // console.log('viewableItems', viewableItems);
+    setIndex(viewableItems[0].index);
+  }).current;
+
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 50,
+  }).current;
+
   return (
-    <View style = {styles.container}>
-      <Text>Developer</Text>
-        <Image source={{uri:devData.image}} style={styles.image}/>
+    <View>
+      <FlatList
+        data={Slides}
+        renderItem={({item}) => <SlideItem item={item} />}
+        horizontal
+        pagingEnabled
+        snapToAlignment="center"
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleOnScroll}
+        onViewableItemsChanged={handleOnViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
+      />
+      <Pagination data={Slides} scrollX={scrollX} index={index} />
     </View>
-  )
-}
+  );
+};
 
-const styles = StyleSheet.create({
-    container : {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        resizeMode: 'cover',
-    }
-})
+export default Developer;
 
-
-export default Developer
+const styles = StyleSheet.create({});

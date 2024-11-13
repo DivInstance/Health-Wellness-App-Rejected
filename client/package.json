@@ -21,6 +21,7 @@
     "axios": "^1.7.4",
     "expo": "^51.0.39",
     "expo-audio": "^0.1.0",
+    "expo-av": "~14.0.7",
     "expo-router": "^3.5.23",
     "expo-status-bar": "~1.12.1",
     "react": "^18.2.0",
@@ -28,6 +29,8 @@
     "react-native-chart-kit": "^6.12.0",
     "react-native-circular-progress": "^1.4.1",
     "react-native-fs": "^2.20.0",
+    "react-native-html-to-pdf": "^0.12.0",
+    "react-native-pdf-lib": "^1.0.0",
     "react-native-phone-call": "^1.2.0",
     "react-native-progress": "^5.0.1",
     "react-native-purchases-ui": "^8.0.0",
@@ -38,8 +41,7 @@
     "react-native-svg": "^15.8.0",
     "react-native-vector-icons": "^10.1.0",
     "react-redux": "^9.1.2",
-    "rn-slide-button": "^1.0.3",
-    "expo-av": "~14.0.7"
+    "rn-slide-button": "^1.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0"

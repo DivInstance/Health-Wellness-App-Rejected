@@ -81,7 +81,7 @@ const Run = () => {
       ) : (
         <>
           {!isPaused && (
-            <Image style={styles.Cycle} source={require('../../assets/cycle.gif')} />
+            <Image style={styles.Cycle} source={require('../../assets/run.gif')} />
           )}
           <View style={styles.overlay}>
             <Text style={styles.stopwatch}>{formatTime(time)}</Text>

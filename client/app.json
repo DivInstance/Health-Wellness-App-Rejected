@@ -25,11 +25,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "27d64e29-beed-4f94-af80-e0dfe9bc45e3"
-      }
-    },
-    "owner": "senkaomichael"
+    "plugins": [
+      "expo-audio",
+      "expo-router"
+    ]
   }
 }

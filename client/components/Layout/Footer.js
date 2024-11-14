@@ -19,14 +19,14 @@ const Footer = () => {
         <Text style = {[StyleSheet.iconText, route.name === "exercise" && styles.active]}>Activity</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.menuContainer} onPress={()=>  navigation.navigate('cycle')}>
+      <TouchableOpacity style = {styles.menuContainer} onPress={()=>  navigation.navigate('record')}>
         <AntDesign style = {[styles.icons, route.name === "record" && styles.active]} name = "pluscircleo"/>
         <Text style = {[StyleSheet.iconText, route.name === "record" && styles.active]}>Record</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.menuContainer} onPress={()=> navigation.navigate('learn')}>
-        <AntDesign style = {[styles.icons, route.name === "learn" && styles.active]} name = "earth"/>
-        <Text style = {[StyleSheet.iconText, route.name === "learn" && styles.active]}>Learn</Text>
+      <TouchableOpacity style = {styles.menuContainer} onPress={()=> navigation.navigate('meditate')}>
+        <AntDesign style = {[styles.icons, route.name === "meditate" && styles.active]} name = "earth"/>
+        <Text style = {[StyleSheet.iconText, route.name === "meditate" && styles.active]}>Meditate</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style = {styles.menuContainer} onPress={()=> navigation.navigate('Account Information')}>

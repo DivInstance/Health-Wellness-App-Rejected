@@ -7,6 +7,7 @@ import ProgressBar from 'react-native-progress/Bar';
 import { LineChart } from 'react-native-chart-kit';
 import Layout from '../../components/Layout/Layout';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRoute,useNavigation } from '@react-navigation/native';
 import { getUserData } from '../../redux/features/auth/userAction';
 
 const screenWidth = Dimensions.get('window').width;
@@ -45,6 +46,9 @@ const Home = () => {
     console.log(`Authentication Flag (Home.js) - ${isAuthenticated}`);
   }, [dispatch]);
 
+  const route = useRoute();
+  const navigation = useNavigation();
+
   return (
     <Layout>
       <ScrollView style={styles.container}>
@@ -56,7 +60,7 @@ const Home = () => {
             <Metric icon="cellphone-arrow-down" value={screenTimeData.pickups} label="Pickups" />
             <Metric icon="timer" value={screenTimeData.continuousUse} label="Continuous Use" />
           </View>
-          <Button style={styles.button} onPress={() => alert('Eye Protection Activated')} label="Eye Protection" />
+          <Button style={styles.button} onPress = {()=> navigation.navigate('screentime')} label="Eye Protection" />
         </DashboardCard>
 
         <DashboardCard title="Drink Water">
@@ -95,7 +99,7 @@ const Home = () => {
             <Metric icon="map-marker-distance" value={`${kmWalked} km`} label="Distance" />
             <Metric icon="fire" value={caloriesBurned} label="Calories" />
           </View>
-          <Button style={styles.button}  label="Start Exercise" />
+          <Button style={styles.button}  label="Start Exercise" onPress={()=>navigation.navigate("record")}/>
         </DashboardCard>
       </ScrollView>
     </Layout>
@@ -133,12 +137,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fffef6',
     padding: 16,
-    marginTop:'7.5%',
     marginBottom:'20%',
   },
   titleContainer: {
     paddingVertical: 20,
     alignItems: 'center',
+    marginTop:'5%'
   },
   titleText: {
     fontSize: 36,

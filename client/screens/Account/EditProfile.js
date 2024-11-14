@@ -121,7 +121,7 @@ const EditProfile = () => {
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: profilePicture }} />
           <Pressable onPress={() => alert("profile dialog box")}>
-            <Text style={{ color: "red" }}>Update your profile picture</Text>
+            <Text style={{ color: "red", fontSize:16.5,paddingBottom:15 }}>Update your profile picture</Text>
           </Pressable>
         </View>
 
@@ -181,7 +181,8 @@ const EditProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    backgroundColor: '#fffef6',
+    height: '100%',
   },
   imageContainer: {
     justifyContent: "center",
@@ -190,6 +191,7 @@ const styles = StyleSheet.create({
   image: {
     height: 100,
     width: 100,
+    padding:87,
     resizeMode: "content",
   },
   updateButton: {
@@ -199,8 +201,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    marginTop: 10,
-    marginLeft: 42,
+    alignSelf:'center', 
+    marginTop: '5%',
+
   },
   updateButtonText: {
     color: "#fff",

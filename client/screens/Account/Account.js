@@ -1,15 +1,4 @@
-import {
-  ScrollView,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Linking,
-  ActivityIndicator,
-  Platform,
-} from "react-native";
+import {View,Text,Image,StyleSheet,TouchableOpacity,Button,Linking,ActivityIndicator,} from "react-native";
 import { React, useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { localUserData } from "../../data/userData";
@@ -25,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { server } from "../../redux/store";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from 'expo-sharing';
+import DownloadDataButton from "./Download";
 
 const Account = () => {
   const [userData, setUserData] = useState(null); // State to store user data
@@ -88,6 +78,7 @@ const Account = () => {
           data.contactNo = data.contactNo || "NA";
           data.height = data.height || "NA";
           data.weight = data.weight || "NA";
+          data.profilePicture = data.profilePicture || "NA";
 
           setUserData(data); // Update state with the fetched data
         } else {
@@ -110,14 +101,17 @@ const Account = () => {
         <View style={styles.ProfileContainer}>
           <Image
             style={styles.profilePicture}
-            source={{ uri: userData.profilePicture }}
+            source={{uri:localUserData.profilePicture }}
           />
+          
+          {/*source={{ uri: userData.profilePicture }}*/}
 
           <Text
             style={{
               color: "white",
               fontSize: 32,
-              fontWeight: "500",
+              fontWeight: "bold",
+              letterSpacing:1.5,
               textTransform: "uppercase",
               alignSelf: "center",
             }}
@@ -160,12 +154,12 @@ const Account = () => {
               <Text style={styles.infoData}>
                 {" "}
                 {userData.height + " cm"}
-                <Text style={{ fontWeight: "400" }}>
+                <Text style={{ fontWeight: "600" }}>
                   {" "}
                   weight : <Text style={styles.infoData}></Text>
                   <Text style={styles.infoData}>
                     {userData.weight + " kg"}
-                    <Text style={{ fontWeight: "400" }}>
+                    <Text style={{ fontWeight: "600" }}>
                       {" "}
                       gender:{" "}
                       <Text style={styles.infoData}>{userData.gender}</Text>
@@ -178,7 +172,7 @@ const Account = () => {
         </View>
 
         <View style={styles.accountContainer}>
-          <Text style={styles.heading}> Account Setting </Text>
+          <Text style={styles.heading}> Account Settings </Text>
 
           <View style={{ marginTop: 15 }}>
             <TouchableOpacity
@@ -222,7 +216,7 @@ const Account = () => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button}>
-              <AntDesign name="download" style={styles.button} />
+              <AntDesign name="wallet" style={styles.button} />
               <Text
                 style={styles.buttonText}
                 onPress={() =>
@@ -231,13 +225,13 @@ const Account = () => {
                   )
                 }
               >
-                Application Repository
+                Project Repository
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("developer")}>
               <FontAwesome name="connectdevelop" style={styles.button} />
-              <Text style={styles.buttonText}>Developer Contact</Text>
+              <Text style={styles.buttonText}>Developers of the Project</Text>
             </TouchableOpacity>
 
             <View style={{ flexDirection: "row", marginTop: 18 }}>
@@ -286,9 +280,12 @@ const Account = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     marginVertical: 20,
     marginTop: 15,
     marginLeft: 3,
+    padding:7.5,
+    backgroundColor: '#fffef6',
   },
   profilePicture: {
     height: 120,
@@ -296,14 +293,14 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   infoClass: {
-    fontWeight: "300",
+    fontWeight: "700",
     fontSize: 16.5,
     padding: 1.5,
     color: "white",
     bottom: 0,
   },
   infoData: {
-    fontWeight: "100",
+    fontWeight: "400",
   },
 
   userDetails: {
@@ -314,12 +311,15 @@ const styles = StyleSheet.create({
   },
   ProfileContainer: {
     //backgroundColor: "#17153B",
-    backgroundColor: "#373A40",
-    width: "99%",
-    marginLeft: 1.5,
-    borderRadius: 10,
-    paddingBottom: 10,
-    elevation: 9,
+    backgroundColor: "#f5a623",
+    //backgroundColor: "#373A40",
+    borderRadius: 15,
+    paddingBottom:10,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 4,
   },
   accountContainer: {
     padding: 10,

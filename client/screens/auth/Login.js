@@ -15,7 +15,7 @@ import { useReduxStateHook } from "../../hooks/customHook";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { server } from "../../redux/store";
- 
+
 const Login = ({ navigation }) => {
   // URLs for the login and background images
   const LoginImage =
@@ -50,24 +50,15 @@ const Login = ({ navigation }) => {
     setLoading(true); // Set loading state while the login request is being processed
 
     try {
-      // Make API request to authenticate the user
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${server}/user/login`,
-        { email: email, password: password },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      const data = response.data;
-
-      // Store user information and authentication token in AsyncStorage
+      dispatch(actionLogin(data));
       await AsyncStorage.setItem("@userData", JSON.stringify(data.user));
       await AsyncStorage.setItem("@authToken", data.token);
-
-      // Dispatch login action to update Redux state
-      dispatch(actionLogin(email, password));
-
       // Navigate to the Home Page after successful login
       navigation.navigate("Home Page");
     } catch (error) {

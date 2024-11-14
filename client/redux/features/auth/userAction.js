@@ -104,14 +104,10 @@ export const logoutAction = () => async (dispatch) => {
       type: "logoutRequest",
     });
     //token request
-    const token = await AsyncStorage.getItem("@authToken");
+    // const token = await AsyncStorage.getItem("@authToken");
 
     //hitting node logout api request
-    const { data } = await axios.get(`${server}/user/logout`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await axios.get(`${server}/user/logout`);
 
     console.log(`Logout data - ${data}`);
     dispatch({

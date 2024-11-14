@@ -1,4 +1,4 @@
-import {View,Text,Image,StyleSheet,TouchableOpacity,Button,Linking,ActivityIndicator,} from "react-native";
+import {View,Text,Image,StyleSheet,TouchableOpacity,Button,Linking,ActivityIndicator, ScrollView} from "react-native";
 import { React, useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { localUserData } from "../../data/userData";

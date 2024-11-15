@@ -47,11 +47,11 @@ const Register = ({navigation}) => {
    
         <View style = {styles.containerB}>
             
-            <Image source={{ uri:RegisterImage }} style = {styles.image}/>
+            <Image source={require('../../assets/Logo/logo2.png')} style = {styles.image}/>
 
         <InputBox placeholder={"Enter your name"} value = {name} setValue = {setName} autoComplete={'name'} />
         
-        <View style = {{flexDirection:'row'}}>
+        <View style = {{flexDirection:'row',alignContent:'center'}}>
         <InputBox placeholder={"Gender"} value = {gender} setValue={setGender}/>
         <InputBox placeholder={"Age"} value = {age} setValue={setAge}/>
         <InputBox placeholder={"Blood"} value = {bloodGroup} setValue={setBloodGroup}/>

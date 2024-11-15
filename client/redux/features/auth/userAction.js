@@ -12,7 +12,7 @@ export const actionLogin = (email,password) => async (dispatch) => {
         const { data } = await axios.post(`${server}/user/login`,{email,password},{headers: {'Content-Type': 'application/json'}});
         console.log(`login error now  - ${data}`)
         dispatch({
-            type:'loginSuccess',
+            type:'loginSuccess',    
             payload:data,
         })
         await AsyncStorage.setItem("@auth", data?.token);
@@ -105,7 +105,7 @@ export const logoutAction = () => async (dispatch) => {
             },
         });
 
-        console.log(`Logout data - ${data}`)
+        //console.log(`Logout data - ${data}`)
         dispatch({
             type:'logoutSuccess',
             payload:data?.message,

@@ -24,10 +24,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     input: {
-        width: '75%',
-        height: 36,
+        width: '100%',
+        height: 45,
         backgroundColor: 'white',
-        marginLeft: 45,
         paddingLeft: 10,
         borderRadius: 10,
         color: '#000000',

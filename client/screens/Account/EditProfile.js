@@ -1,46 +1,75 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-  Pressable,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, Pressable, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useState, useEffect } from "react";
 import { localUserData } from "../../data/userData";
 import Layout from "../../components/Layout/Layout";
 import InputBox from "../../components/Form/InputBox";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { editProfileAction } from "../../redux/features/auth/userAction";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { server } from "../../redux/store";
 
 const EditProfile = () => {
-  //Navigation Instance
+  // Navigation Instance
   const route = useRoute();
   const navigation = useNavigation();
 
-  //State variables for form inputs
+  // State variables for form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profilePicture, setProfilePicture] = useState(localUserData.profilePicture);
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("")
   const [contactNo, setContact] = useState("");
   const [age, setAge] = useState("");
-  // const [gender, setGender] = useState("")
   const [bloodGroup, setBloodGroup] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [loading, setLoading] = useState(true); // Loading state
 
-  //Update the profile
-  const handleUpdate = () => {
+  const dispatch = useDispatch();
+
+  // Update the profile
+  const handleUpdate = async () => {
     if (!name || !email) {
       return alert("Please fill all required fields");
     }
-    alert("Profile updated successfully");
-    navigation.navigate("Account Information");
+
+    try {
+      const updatedUser = {
+        name,
+        email,
+        password,
+        contactNo,
+        age,
+        height,
+        weight,
+        bloodGroup,
+      };
+
+      const token = await AsyncStorage.getItem("@authToken");
+
+      // Hitting node API request for profile update
+      const { data } = await axios.put(
+        `${server}/user/profile-update`, // Endpoint for updating user data
+        updatedUser, // Pass the updated user data here as the request body
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      dispatch(editProfileAction(data));
+
+      navigation.navigate("Account Information", { id: data.user._id });
+
+      alert("Profile updated successfully");
+    } catch (error) {
+      console.log(error);
+      return alert("Error updating profile.");
+    }
   };
 
   useEffect(() => {
@@ -81,7 +110,9 @@ const EditProfile = () => {
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: profilePicture }} />
           <Pressable onPress={() => alert("profile dialog box")}>
-            <Text style={{ color: "red", fontSize:16.5,paddingBottom:15 }}>Update your profile picture</Text>
+            <Text style={{ color: "red", fontSize: 16.5, paddingBottom: 15 }}>
+              Update your profile picture
+            </Text>
           </Pressable>
         </View>
 
@@ -141,8 +172,8 @@ const EditProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fffef6',
-    height: '100%',
+    backgroundColor: "#fffef6",
+    height: "100%",
   },
   imageContainer: {
     justifyContent: "center",
@@ -151,7 +182,7 @@ const styles = StyleSheet.create({
   image: {
     height: 100,
     width: 100,
-    padding:87,
+    padding: 87,
     resizeMode: "content",
   },
   updateButton: {
@@ -161,9 +192,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    alignSelf:'center', 
-    marginTop: '5%',
-
+    alignSelf: "center",
+    marginTop: "5%",
   },
   updateButtonText: {
     color: "#fff",

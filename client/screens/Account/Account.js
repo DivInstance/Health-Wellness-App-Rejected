@@ -11,7 +11,9 @@ import { useReduxStateHook } from "../../hooks/customHook";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../../redux/features/auth/userAction";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DownloadDataButton from "./Download";
+import { server } from "../../redux/store";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from 'expo-sharing';
 
 const Account = () => {
   const [userData, setUserData] = useState(null); // State to store user data
@@ -20,6 +22,41 @@ const Account = () => {
   const navigation = useNavigation(); // Navigation instance
   const isLoading = useReduxStateHook(navigation, "login"); // Check if login is still loading from Redux
   const dispatch = useDispatch(); // Dispatch to trigger actions
+
+  const downloadUserProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem("@authToken");
+
+      const url = `${server}/user/download-profile`; // backend URL
+      // Set the headers with the Authorization token
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      // Define the file path where the PDF will be saved
+      const fileUri = FileSystem.documentDirectory + "user-info.pdf";
+
+      // Initiate file download from the backend
+      const response = await FileSystem.downloadAsync(url, fileUri, {
+        headers,
+      });
+      console.log("PDF downloaded to:", response.uri);
+
+
+      // Check if sharing is available on the device
+      if (await Sharing.isAvailableAsync()) {
+        // Share the PDF
+        await Sharing.shareAsync(response.uri);
+        alert("File shared successfully.");
+
+      } else {
+        // Fallback: Open the PDF using react-native-file-viewer if sharing is unavailable
+        await FileViewer.open(response.uri);
+      }
+    } catch (error) {
+      alert("Failed to download file: " + error.message);
+    }
+  };
 
   useEffect(() => {
     // Fetch user data from AsyncStorage when component mounts
@@ -150,7 +187,7 @@ const Account = () => {
               <Text style={styles.buttonText}>Notifications</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={downloadUserProfile}>
               <AntDesign name="download" style={styles.button} />
               <Text style={styles.buttonText}>Download my Data</Text>
             </TouchableOpacity>
@@ -208,19 +245,14 @@ const Account = () => {
               <TouchableOpacity
                 style={styles.logoutButton}
                 onPress={async () => {
-                  dispatch(logoutAction());
-                  await AsyncStorage.removeItem("@auth");
+                  dispatch(logoutAction());                  
+                  await AsyncStorage.removeItem("@authToken");
+                  await AsyncStorage.removeItem("@userData");
+                  navigation.navigate("login");
                 }}
               >
                 <AntDesign
-                  name="logout"
-                  style={{
-                    flexDirection: "row",
-                    padding: 7.5,
-                    fontSize: 15,
-                    color: "white",
-                  }}
-                />
+                  name="logout" style={{ flexDirection: "row", padding: 7.5, fontSize: 15, color: "white", }} />
                 <Text style={styles.logoutText}>Logout</Text>
               </TouchableOpacity>
             </View>

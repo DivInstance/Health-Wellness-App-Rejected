@@ -18,8 +18,7 @@ import axios from "axios";
 import { server } from "../../redux/store";
 
 const Login = ({ navigation }) => {
-  const LoginImage =
-    "https://static.vecteezy.com/system/resources/previews/027/241/646/original/3d-icon-login-security-png.png";
+  //const LoginImage = {require ("../../assets/Logo/logo.png")}
   const BackImage =
     "https://img.freepik.com/free-vector/medical-technology-science-background-vector-blue-with-blank-space_53876-117739.jpg";
 
@@ -38,20 +37,15 @@ const Login = ({ navigation }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${server}/user/login`,
-        { email: email, password: password },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      const data = response.data;
-
+      dispatch(actionLogin(data));
       await AsyncStorage.setItem("@userData", JSON.stringify(data.user));
       await AsyncStorage.setItem("@authToken", data.token);
-
-      dispatch(actionLogin(email, password));
 
       navigation.navigate("Home Page");
     } catch (error) {
@@ -71,7 +65,7 @@ const Login = ({ navigation }) => {
       <ImageBackground source={require('../../assets/login.jpg')} style={styles.backgroundImage}>
         <View style={styles.containerBWrapper}>
           <View style={styles.containerB}>
-            <Image source={{ uri: LoginImage }} style={styles.image} />
+            <Image source={require('../../assets/Logo/logo2.png')} style={styles.image} />
             {loading && <Text>loading...</Text>}
 
             <View style={styles.innerContainer}>
@@ -147,8 +141,8 @@ const styles = StyleSheet.create({
     resizeMode: "center",
   },
   image: {
-    height: 250,
-    width: 200,
+    height: '50%',
+    width: '90%',
     alignSelf: "center",
     resizeMode: "contain",
   },

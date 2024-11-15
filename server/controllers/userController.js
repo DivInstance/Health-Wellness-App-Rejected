@@ -23,7 +23,8 @@ export const registerController = async (req, res) => {
       });
     }
 
-    const user = await userModel.create({ name, email, password, contactNo });
+    const user = await userModel.create(req.body);
+
     res.status(201).send({
       success: true,
       message: "User registered successfully",
@@ -52,6 +53,9 @@ export const loginController = async (req, res) => {
       });
     }
     //check user
+    // const users = await userModel.find();
+    // console.log(users);
+    // await userModel.findByIdAndDelete('673656279b77b265a1a1cea3');
     const user = await userModel.findOne({ email });
     //user validation
 
@@ -94,6 +98,7 @@ export const loginController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error while logging in API",
+      
       error,
     });
   }
@@ -179,7 +184,7 @@ export const updateProfileController = async (req, res) => {
     console.log(req.user);
     res.status(500).send({
       success: false,
-      message: "Error while logging out API",
+      message: "Error while updating profile",
       error,
     });
   }
@@ -190,7 +195,8 @@ export const updatePasswordController = async (req, res) => {
     const user = await userModel.findById(req.user._id);
     const { currentPassword, newPassword } = req.body;
     //validation
-    console.log(req.body);
+    //console.log(req.body);}
+
     if (!currentPassword || !newPassword) {
       return res.status(500).send({
         success: false,
@@ -215,7 +221,7 @@ export const updatePasswordController = async (req, res) => {
       message: "Password updated successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.log(error)
     res.status(500).send({
       success: false,
       message: "Error while updating password",
@@ -268,7 +274,7 @@ export const updateProfilePictureController = async (req, res) => {
 export const downloadProfileController = async (req, res) => {
   try {
     // Fetch the user data from the database
-    const user = await userModel.findById(req.user._id);
+    const user = req.user;
 
     if (!user) {
       return res.status(404).send("User not found");

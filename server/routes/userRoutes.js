@@ -18,10 +18,11 @@ router.post('/login',loginController)
 router.get('/profile',isAuthenticated,profileController)
 
 //logout
-router.get('/logout',isAuthenticated,logoutController)
+//router.get('/logout',isAuthenticated,logoutController)
+router.get('/logout',logoutController)
 
 //profile update
-router.get('/profile-update',isAuthenticated,updateProfileController)
+router.put('/profile-update',isAuthenticated,updateProfileController)
 
 //password update 
 router.put('/update-password',isAuthenticated,updatePasswordController)

@@ -52,9 +52,9 @@ const Emergency = () => {
             Emergency Guardian Contacts
         </Text>
 
-        <Text style = {styles.infoText}> Abrakadabra @ 1234567890 </Text>
-        <Text style = {styles.infoText}> Mom @ 1010101010 # Verified </Text>
-        <Text style = {styles.infoText}> Dad @ 0101010101 # Verified</Text>
+        <Text style = {styles.infoText}> Healthcare Center @ 9182736450 </Text>
+        <Text style = {styles.infoText}> Mom @ 987654321 # Verified </Text>
+        <Text style = {styles.infoText}> Dad @ 7024315986 # Verified</Text>
 
         {/*<Text style={styles.infoText}>My Safe Person Contact: 908679087</Text> 
         <Text style={styles.infoText}>Latitude: 37.7749° N    Longitude: 122.4194° W</Text>

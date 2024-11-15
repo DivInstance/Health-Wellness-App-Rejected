@@ -1,4 +1,4 @@
-import {View,Text,Image,StyleSheet,TouchableOpacity,Button,Linking,ActivityIndicator,} from "react-native";
+import {View,Text,Image,StyleSheet,TouchableOpacity,Button,Linking,ActivityIndicator, ScrollView} from "react-native";
 import { React, useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { localUserData } from "../../data/userData";
@@ -11,6 +11,9 @@ import { useReduxStateHook } from "../../hooks/customHook";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../../redux/features/auth/userAction";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { server } from "../../redux/store";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from 'expo-sharing';
 import DownloadDataButton from "./Download";
 
 const Account = () => {
@@ -21,6 +24,43 @@ const Account = () => {
   const isLoading = useReduxStateHook(navigation, "login"); // Check if login is still loading from Redux
   const dispatch = useDispatch(); // Dispatch to trigger actions
 
+  const downloadUserProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem("@authToken");
+
+      const url = `${server}/user/download-profile`; // backend URL
+      // Set the headers with the Authorization token
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      // Define the file path where the PDF will be saved
+      const fileUri = FileSystem.documentDirectory + "user-info.pdf";
+
+      // Initiate file download from the backend
+      const response = await FileSystem.downloadAsync(url, fileUri, {
+        headers,
+      });
+      console.log("PDF downloaded to:", response.uri);
+      
+      
+      // Check if sharing is available on the device
+      if (await Sharing.isAvailableAsync()) {
+        // Share the PDF
+        await Sharing.shareAsync(response.uri);
+        alert("File shared successfully.");
+
+      } else {
+        // Fallback: Open the PDF using react-native-file-viewer if sharing is unavailable
+        await FileViewer.open(response.uri);
+      }
+    } catch (error) {
+      alert("Failed to download file: " + error.message);
+    }
+  };
+
+  
+
   useEffect(() => {
     // Fetch user data from AsyncStorage when component mounts
     const fetchUserDataFromStorage = async () => {
@@ -30,6 +70,9 @@ const Account = () => {
           const data = JSON.parse(storedUserData); // Parse stored data
 
           // Set default values for missing user data fields
+          data.profilePicture =
+            data.profilePicture ||
+            "https://cdn3d.iconscout.com/3d/premium/thumb/profile-8260859-6581822.png?f=webp";
           data.bloodGroup = data.bloodGroup || "NA";
           data.gender = data.gender || "NA";
           data.contactNo = data.contactNo || "NA";
@@ -54,8 +97,8 @@ const Account = () => {
   }
   return (
     <Layout>
-      <View style={styles.container}>
-        <View style={styles.ProfileContainer}>  
+      <ScrollView style={styles.container}>
+        <View style={styles.ProfileContainer}>
           <Image
             style={styles.profilePicture}
             source={{uri:localUserData.profilePicture }}
@@ -150,7 +193,10 @@ const Account = () => {
               <Text style={styles.buttonText}>Notifications</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={downloadUserProfile}
+            >
               <AntDesign name="download" style={styles.button} />
               <Text style={styles.buttonText}>Download my Data</Text>
             </TouchableOpacity>
@@ -209,7 +255,8 @@ const Account = () => {
                 style={styles.logoutButton}
                 onPress={async () => {
                   dispatch(logoutAction());
-                  await AsyncStorage.removeItem("@auth");
+                  await AsyncStorage.removeItem("@authToken");
+                  await AsyncStorage.removeItem("@userData");
                 }}
               >
                 <AntDesign
@@ -226,7 +273,7 @@ const Account = () => {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </Layout>
   );
 };

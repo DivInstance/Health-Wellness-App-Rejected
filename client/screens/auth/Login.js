@@ -38,21 +38,16 @@ const Login = ({ navigation }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${server}/user/login`,
-        { email: email, password: password },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      const data = response.data;
-
+      dispatch(actionLogin(data));
       await AsyncStorage.setItem("@userData", JSON.stringify(data.user));
       await AsyncStorage.setItem("@authToken", data.token);
-
-      dispatch(actionLogin(email, password));
-
+      // Navigate to the Home Page after successful login
       navigation.navigate("Home Page");
     } catch (error) {
       setLoading(false);
@@ -67,7 +62,7 @@ const Login = ({ navigation }) => {
       behavior="padding"
       keyboardVerticalOffset={-500}
       style={styles.containerA}>
-        
+
       <ImageBackground source={require('../../assets/login.jpg')} style={styles.backgroundImage}>
         <View style={styles.containerBWrapper}>
           <View style={styles.containerB}>

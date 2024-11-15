@@ -14,6 +14,10 @@ import Layout from "../../components/Layout/Layout";
 import InputBox from "../../components/Form/InputBox";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { editProfileAction } from "../../redux/features/auth/userAction";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { server } from "../../redux/store";
 
 const EditProfile = () => {
   //Navigation Instance
@@ -23,7 +27,9 @@ const EditProfile = () => {
   //State variables for form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [profilePicture, setProfilePicture] = useState(localUserData.profilePicture);
+  const [profilePicture, setProfilePicture] = useState(
+    localUserData.profilePicture
+  );
   const [password, setPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("")
   const [contactNo, setContact] = useState("");
@@ -34,13 +40,47 @@ const EditProfile = () => {
   const [weight, setWeight] = useState("");
   const [loading, setLoading] = useState(true); // Loading state
 
+  // Redux dispatcher for handling login action
+  const dispatch = useDispatch();
+
   //Update the profile
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (!name || !email) {
       return alert("Please fill all required fields");
     }
-    alert("Profile updated successfully");
-    navigation.navigate("Account Information");
+
+    try {
+      const updatedUser = {
+        name,
+        email,
+        password,
+        contactNo,
+        age,
+        height,
+        weight,
+        bloodGroup,
+      };
+      // console.log(updatedUser);
+      const token = await AsyncStorage.getItem("@authToken");
+      //hitting node login api request
+      const { data } = await axios.put(
+        `${server}/user/profile-update`, // Endpoint for updating user data
+        updatedUser, // Pass the updated user data here as the request body
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      dispatch(editProfileAction(data));
+
+      navigation.navigate("Account Information", { id: data.user._id });
+    } catch (error) {
+      console.log(error);
+      return alert("Error updating profile.");
+    }
   };
 
   useEffect(() => {

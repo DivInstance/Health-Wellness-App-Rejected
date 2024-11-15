@@ -5,39 +5,60 @@ import { useDispatch } from 'react-redux'
 import { register } from '../../redux/features/auth/userAction'
 import {useReduxStateHook} from './../../hooks/customHook.js'
 
-const Register = ({navigation}) => {
-    const RegisterImage = "https://cdn3d.iconscout.com/3d/premium/thumb/css-9848466-7993986.png?f=webp"
+const Register = ({ navigation }) => {
+  const RegisterImage =
+    "https://cdn3d.iconscout.com/3d/premium/thumb/css-9848466-7993986.png?f=webp";
+
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [contactNo, setContact] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [bloodGroup, setBloodGroup] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+
+  const loading = useReduxStateHook(navigation, "login");
+
+
+  //Register Function
+  const handleRegister = async () => {
     
-    const dispatch = useDispatch()
-
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [contactNo, setContact] = useState("")
-    const [age, setAge] = useState("")
-    const [gender, setGender] = useState("")
-    const [bloodGroup, setBloodGroup] = useState("")
-    const [height, setHeight] = useState("")
-    const [weight, setWeight] = useState("")    
-
-    //Register Function
-    const handleRegister =  () => {
-        if (!name || !email || !password || !confirmPassword ){
-            return alert("Please fill all required fields");
-        } 
-        const formData = {
-            email,password,name,contactNo,age,bloodGroup,height,weight
-        }
-        dispatch(register(formData))
-
-    // // TODO: Add your API call here to authenticate the user
-    //     alert("User registration successful")
+    if (
+      !name.trim() ||
+      !email.trim() ||
+      !contactNo.trim() ||
+      !gender.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
+      return alert("Please fill all required fields");
+    }
+    if (password.trim() != confirmPassword.trim()) {
+      return alert("Confirmed password mismatched.")
+    }
     
-    //     // navigation.navigate('home') 
+    const formData = {
+      "email": email.trim(),
+      "password":password.trim(),
+      "name": name.trim(),
+      "contactNo": contactNo.trim(),
     };
 
-    const loading = useReduxStateHook(navigation,"login")
+    if (gender) formData.gender = gender.trim().toLowerCase();
+    if (bloodGroup) formData.bloodGroup = bloodGroup.trim();
+    if (height) formData.height = height.trim();
+    if (weight) formData.weight = weight.trim();
+    if (age) formData.age = age.trim();
+
+    dispatch(register(formData));
+   
+  };
+
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -49,12 +70,85 @@ const Register = ({navigation}) => {
             
             <Image source={{ uri:RegisterImage }} style = {styles.image}/>
 
-        <InputBox placeholder={"Enter your name"} value = {name} setValue = {setName} autoComplete={'name'} />
-        
-        <View style = {{flexDirection:'row'}}>
-        <InputBox placeholder={"Gender"} value = {gender} setValue={setGender}/>
-        <InputBox placeholder={"Age"} value = {age} setValue={setAge}/>
-        <InputBox placeholder={"Blood"} value = {bloodGroup} setValue={setBloodGroup}/>
+          <InputBox
+            placeholder={"Enter your name"}
+            value={name}
+            setValue={setName}
+            autoComplete={"name"}
+          />
+
+          <View style={{ flexDirection: "row" }}>
+            <InputBox
+              placeholder={"Gender"}
+              value={gender}
+              setValue={setGender}
+            />
+            <InputBox placeholder={"Age"} value={age} setValue={setAge} />
+            <InputBox
+              placeholder={"Blood"}
+              value={bloodGroup}
+              setValue={setBloodGroup}
+            />
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <InputBox
+              placeholder={" Height in cms "}
+              value={height}
+              setValue={setHeight}
+            />
+            <InputBox
+              placeholder={" Weight in kgs "}
+              value={weight}
+              setValue={setWeight}
+            />
+          </View>
+
+          <InputBox
+            placeholder={"Enter your email"}
+            value={email}
+            setValue={setEmail}
+            autoComplete={"email"}
+          />
+          <InputBox
+            value={password}
+            setValue={setPassword}
+            placeholder={"Enter your Password"}
+            secureTextEntry={true}
+          />
+          <InputBox
+            value={confirmPassword}
+            setValue={setConfirmPassword}
+            placeholder={"Re-Enter your Password"}
+            secureTextEntry={true}
+          />
+          <InputBox
+            placeholder={"Enter your contact no"}
+            value={contactNo}
+            setValue={setContact}
+            autoComplete={"tel"}
+          />
+
+          <View style={styles.containerC}>
+            <TouchableOpacity
+              style={styles.RegisterButton}
+              onPress={handleRegister}
+            >
+              <Text style={styles.textA}>Register New User</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.textB}>
+              {" "}
+              Already have account?
+              <Text
+                style={styles.signupText}
+                onPress={() => navigation.navigate("login")}
+              >
+                {" "}
+                Login Now
+              </Text>
+            </Text>
+          </View>
         </View>
 
         <View style = {{flexDirection:'row'}}>
@@ -79,9 +173,6 @@ const Register = ({navigation}) => {
         </Text>
 
         </View>
-        
-    
-    </View>
     </ImageBackground>
     </ScrollView>
   )

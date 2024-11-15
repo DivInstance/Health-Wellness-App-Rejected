@@ -1,0 +1,29 @@
+{
+  "name": "health-wellness-app",
+  "version": "1.0.0",
+  "description": "Health and wellness app by Khushi, Divyaranjan and Prafulla.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
+  },
+  "author": "Khushi-Divyaranjan-Prafulla",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary": "^2.4.0",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "datauri": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4",
+    "pdfkit": "^0.15.0",
+    "react-native-circular-progress": "^1.4.1"
+  }
+}

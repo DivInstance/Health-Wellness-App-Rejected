@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Touchable, TouchableOpacity, Image, StyleSheet, TextBase, KeyboardAvoidingView, ScrollView, ScrollViewBase } from 'react-native'
+import { View, Text, TextInput, Touchable, TouchableOpacity, Image, StyleSheet, TextBase, KeyboardAvoidingView, ScrollView, ImageBackground } from 'react-native'
 import React, {useState} from 'react'
 import InputBox from '../../components/Form/InputBox'
 import { useDispatch } from 'react-redux'
@@ -41,7 +41,9 @@ const Register = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-    <View  style = {styles.containerA}>
+    <ImageBackground source={require('../../assets/loginbg.jpg')} style={styles.backgroundImage}>
+    <View style={styles.containerBWrapper}></View>
+    
    
         <View style = {styles.containerB}>
             
@@ -78,13 +80,12 @@ const Register = ({navigation}) => {
 
         </View>
         
-      </View>
     
     </View>
+    </ImageBackground>
     </ScrollView>
   )
 }
-
 
 
 const styles = StyleSheet.create({
@@ -92,8 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: "top",
         height: "100%",
         //backgroundColor: "#181818", 
-        backgroundColor: "#F2F2F2",       
-
+        backgroundColor: "#fffef6",
     },
     containerB: {
         //alignItems: "center",
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
         down: 15,
         height: "90%",
         width: "84%",
-        //backgroundColor: "#F2F2F2",
-        backgroundColor: 'white',
+        backgroundColor: "rgba(255, 255, 255, 0.63)", // Semi-transparent background
         borderWidth: 1,
         borderColor: "#D3D3D3",
         borderRadius:15,
+        elevation:30,
     },
     containerC : {
         justifyContent: "center",
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     },
     RegisterButton: {
         alightSelf: "center",
-        backgroundColor: "#00308F",
+        backgroundColor: "#f5a623",
         padding: 12,
         borderRadius: 10,
         marginTop: 15,
@@ -144,6 +144,17 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         fontSize: 16,
     },
+
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+      },
+      image: {
+        height: 250,
+        width: 200,
+        alignSelf: "center",
+        resizeMode: "contain",
+      },
 })
 
 

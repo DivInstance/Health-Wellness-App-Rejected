@@ -7,13 +7,14 @@ export const registerController = async (req, res) => {
   try {
     const { name, email, password, contactNo } = req.body;
     //validation
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !contactNo) {
       return res.status(400).send({
         success: false,
         message: "Please provide all fields",
       });
     }
     //Check Existing User
+    
     const existingUser = await userModel.findOne({ email });
     //validation
     if (existingUser) {
@@ -22,8 +23,10 @@ export const registerController = async (req, res) => {
         message: "Email already exists",
       });
     }
-
-    const user = await userModel.create({ name, email, password, contactNo });
+    
+    
+    const user = await userModel.create(req.body);
+    
     res.status(201).send({
       success: true,
       message: "User registered successfully",
@@ -52,6 +55,9 @@ export const loginController = async (req, res) => {
       });
     }
     //check user
+    // const users = await userModel.find();
+    // console.log(users);
+    // await userModel.findByIdAndDelete('673656279b77b265a1a1cea3');
     const user = await userModel.findOne({ email });
     //user validation
 
@@ -103,7 +109,7 @@ export const loginController = async (req, res) => {
 
 export const profileController = async (req, res) => {
   try {
-    const user = await userModel.find();
+    const user = req.user;
 
     res.status(200).send({
       success: true,
@@ -146,8 +152,9 @@ export const logoutController = async (req, res) => {
 
 export const updateProfileController = async (req, res) => {
   try {
+    // console.log(req.body);
     const user = await userModel.findById(req.user._id);
-
+    // console.log(user);
     const {
       name,
       email,
@@ -176,10 +183,10 @@ export const updateProfileController = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    console.log(req.user);
+    // console.log(req.user);
     res.status(500).send({
       success: false,
-      message: "Error while logging out API",
+      message: "Error while updating profile",
       error,
     });
   }
@@ -190,7 +197,7 @@ export const updatePasswordController = async (req, res) => {
     const user = await userModel.findById(req.user._id);
     const { currentPassword, newPassword } = req.body;
     //validation
-    console.log(req.body);
+    // console.log(req.body);
     if (!currentPassword || !newPassword) {
       return res.status(500).send({
         success: false,
@@ -269,6 +276,7 @@ export const downloadProfileController = async (req, res) => {
   try {
     // Fetch the user data from the database
     const user = await userModel.findById(req.user._id);
+    // console.log(user)
 
     if (!user) {
       return res.status(404).send("User not found");
@@ -309,6 +317,7 @@ export const downloadProfileController = async (req, res) => {
     // Finalize the PDF and end the stream
     doc.end();
   } catch (error) {
+    console.log(error)
     res.status(500).send({
       success: false,
       message: "An error occurred",
